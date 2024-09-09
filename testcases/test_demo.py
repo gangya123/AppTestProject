@@ -1,19 +1,11 @@
 from appium import webdriver
 from time import sleep
-
+from config import get_config
 from appium.options.android import UiAutomator2Options
 
 url = "http://127.0.0.1:4723/wd/hub"
-caps = {
-    "platformName": "android",
-    "platformVersion": "5.1.1",
-    "deviceName": "xxxx",
-    "udid": "127.0.0.1:21503",
-    "appPackage": "com.tal.kaoyan",
-    "appActivity": "com.tal.kaoyan.ui.activity.SplashActivity",
-    "onReset": "False"
-}
 
+caps = get_config.get_yaml_data()
 # 定义驱动，后续用来调用相关测代码
 options = UiAutomator2Options().load_capabilities(caps)
 driver = webdriver.Remote(url, options=options)
@@ -31,19 +23,14 @@ except BaseException:
 # 点击跳过
 driver.find_element("id", "com.tal.kaoyan:id/tv_skip").click()
 
-# 注册
-driver.find_element("id", "com.tal.kaoyan:id/login_register_text").click()
-
-
 # 输入用户名
-# driver.find_element("id", "com.tal.kaoyan:id/login_email_edittext").send_keys("skzhao")
+driver.find_element("id", "com.tal.kaoyan:id/login_email_edittext").send_keys("skzhaohh")
 
 # 输入密码
-# driver.find_element("id", "com.tal.kaoyan:id/login_password_edittext").send_keys("skzhao")
+driver.find_element("id", "com.tal.kaoyan:id/login_password_edittext").send_keys("zsk123456!")
 
 # 点击登录
-# driver.find_element("id", "com.tal.kaoyan:id/login_login_btn").click()
-
+driver.find_element("id", "com.tal.kaoyan:id/login_login_btn").click()
 
 sleep(5)
 # 测试完毕，退出

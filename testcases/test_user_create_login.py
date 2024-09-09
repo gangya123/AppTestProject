@@ -15,26 +15,28 @@ class MyTestAppProject(unittest.TestCase):
     driver = webdriver.Remote(url, options=options)
 
     def setUp(self):
-        # 捕获版本更新页面
-        try:
-            self.driver.find_element("id", "android:id/button2").click()
-        except BaseException:
-            print("没有提示更新版本！")
-
-        # 跳过
-        self.driver.find_element("id", "com.tal.kaoyan:id/tv_skip").click()
+        pass
 
     def tearDown(self):
-        self.driver.quit()
+        pass
 
     @classmethod
     def setUpClass(cls) -> None:
         # 隐式等待
         cls.driver.implicitly_wait(5)
 
+        # 捕获版本更新页面
+        try:
+            cls.driver.find_element("id", "android:id/button2").click()
+        except BaseException:
+            print("没有提示更新版本！")
+
+        # 跳过
+        cls.driver.find_element("id", "com.tal.kaoyan:id/tv_skip").click()
+
     @classmethod
     def tearDownClass(cls) -> None:
-        pass
+        cls.driver.quit()
 
     def test_kaoyanbang_create_user(self,):
         # 注册
@@ -65,6 +67,9 @@ class MyTestAppProject(unittest.TestCase):
         self.driver.save_screenshot("./screenshots/screen.png")
 
     def test_kaoyanbang_login(self):
+        # 返回上一页面
+        self.driver.find_element("id", "com.tal.kaoyan:id/myapptitle_leftbutton_image").click()
+
         # 输入用户名
         self.driver.find_element("id", "com.tal.kaoyan:id/login_email_edittext").send_keys("skzhaohh")
 
