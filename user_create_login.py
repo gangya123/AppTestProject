@@ -3,25 +3,19 @@ import unittest
 from appium import webdriver
 import time
 from appium.options.android import UiAutomator2Options
+from config import get_config
 
 
 class MyTestAppProject(unittest.TestCase):
     url = "http://127.0.0.1:4723/wd/hub"
-    caps = {
-        "platformName": "android",
-        "platformVersion": "5.1.1",
-        "deviceName": "xxxx",
-        "udid": "127.0.0.1:21503",
-        "appPackage": "com.tal.kaoyan",
-        "appActivity": "com.tal.kaoyan.ui.activity.SplashActivity",
-        "onReset": "False"
-    }
+
     # 定义驱动，后续用来调用相关测代码
+    caps = get_config.get_yaml_data()
     options = UiAutomator2Options().load_capabilities(caps)
     driver = webdriver.Remote(url, options=options)
 
     def setUp(self):
-        # 捕获版本更新
+        # 捕获版本更新页面
         try:
             self.driver.find_element("id", "android:id/button2").click()
         except BaseException:
